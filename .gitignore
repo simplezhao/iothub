@@ -35,3 +35,6 @@ $RECYCLE.BIN/
 
 .vscode/settings.json
 test/.idea/
+
+# environemt
+.env

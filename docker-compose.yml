@@ -1,0 +1,61 @@
+version: '3.1'
+services:
+    postgres:
+        image: postgres:11.6
+        shm_size: '1gb'
+        restart: always
+        container_name: postgres
+        ports:
+            - 5432:5432
+        environment: 
+            - POSTGRES_PASSWORD=${PASSWD}
+            - POSTGRES_DB=iothub
+        volumes:
+            - /opt/postgresqldb/data:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime
+    nginx:
+        image: nginx:1.17.7
+        container_name: nginx
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - /etc/localtime:/etc/localtime
+    
+    redis:
+        image: redis:5.0
+        container_name: redis
+        restart: always
+        ports:
+            - 6379:6379
+        volumes:
+            - /opt/redis/data:/data
+            - /etc/localtime:/etc/localtime
+        command: --requirepass "${PASSWD}" --appendonly yes
+
+    # mqtt:
+    #     image: eclipse-mosquitto:1.6.8
+    #     container_name: mqtt
+    #     volumes:
+    #         - /opt/mosquitto/config:/mosquitto/config
+    #         - /opt/mosquitto/data:/mosquitto/data
+    #         - /opt/mosquitto/log:/mosquitto/log
+    #         - /etc/localtime:/etc/localtime
+    #     ports:
+    #         - 1883:1883
+    #         - 9001:9001
+    emqx:
+        image: emqx/emqx:4.0.0
+        container_name: emqx
+        volumes: 
+            - /opt/emqx/etc:/opt/emqx/etc
+            - /opt/emqx/log:/opt/emqx/log 
+        ports: 
+            - 1883:1883
+            - 8883:8883
+            - 8084:8084
+            - 8080:8080
+            - 18083:18083
+        
+
+        

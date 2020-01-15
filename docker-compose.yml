@@ -50,6 +50,7 @@ services:
         volumes: 
             - /opt/emqx/etc:/opt/emqx/etc
             - /opt/emqx/log:/opt/emqx/log 
+        user: root
         ports: 
             - 1883:1883
             - 8883:8883

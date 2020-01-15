@@ -23,7 +23,7 @@ services:
             - /etc/localtime:/etc/localtime
     
     redis:
-        image: redis:5.0
+        image: redis:latest
         container_name: redis
         restart: always
         ports:
@@ -45,7 +45,7 @@ services:
     #         - 1883:1883
     #         - 9001:9001
     emqx:
-        image: emqx/emqx:4.0.0
+        image: emqx/emqx:latest
         container_name: emqx
         volumes: 
             - /opt/emqx/etc:/opt/emqx/etc
